@@ -6,7 +6,7 @@ import java.util.LinkedList;
 // REFACTOR ME
 public class GameBetter implements IGame {  //bad name-> GameBetter + no need fo IGame we already know is an interface
 
-    ArrayList<Player> players = new ArrayList<>();
+    List<Player> players;
     Map<Integer, Category> categories;
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -14,6 +14,7 @@ public class GameBetter implements IGame {  //bad name-> GameBetter + no need fo
     GameBetter(LinkedList<Player> players, List<Category> categories) {
         this.categories = categories.stream()
                 .collect(Collectors.toMap(value -> value.getCategoryType().ordinal(), value -> value));
+        this.players = players;
         System.out.println("\n\n--Starting game--");
 
     }
@@ -22,6 +23,7 @@ public class GameBetter implements IGame {  //bad name-> GameBetter + no need fo
         categories.put(category.getCategoryType().ordinal(), category);
     }
 
+    //DO WE STILL NEED THIS ?
     public void addPlayer(final String playerName) {
         Player player = new Player(playerName);
         players.add(player);
