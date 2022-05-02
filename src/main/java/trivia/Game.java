@@ -36,7 +36,7 @@ public class Game implements IGame {
       return (howManyPlayers() >= 2);
    }
 
-   public boolean add(String playerName) {
+   public void addPlayer(String playerName) {
 
 
       players.add(playerName);
@@ -46,14 +46,13 @@ public class Game implements IGame {
 
       System.out.println(playerName + " was added");
       System.out.println("They are player number " + players.size());
-      return true;
    }
 
    public int howManyPlayers() {
       return players.size();
    }
 
-   public void roll(int roll) {
+   public void takeTurn(int roll) {
       System.out.println(players.get(currentPlayer) + " is the current player");
       System.out.println("They have rolled a " + roll);
 
@@ -114,7 +113,7 @@ public class Game implements IGame {
       return "Rock";
    }
 
-   public boolean wasCorrectlyAnswered() {
+   public boolean handleCorrectAnswer() {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was correct!!!!");
@@ -138,7 +137,7 @@ public class Game implements IGame {
 
       } else {
 
-         System.out.println("Answer was corrent!!!!");
+         System.out.println("Answer was correct!!!!");
          purses[currentPlayer]++;
          System.out.println(players.get(currentPlayer)
                             + " now has "
@@ -153,7 +152,7 @@ public class Game implements IGame {
       }
    }
 
-   public boolean wrongAnswer() {
+   public boolean handleWrongAnswer() {
       System.out.println("Question was incorrectly answered");
       System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
       inPenaltyBox[currentPlayer] = true;
