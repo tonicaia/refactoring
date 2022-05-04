@@ -21,8 +21,8 @@ public class GameInitializer {
     public static GameBetter initBetterGame() {
         System.out.println("*** Welcome to Trivia Game ***\n");
 
-        return new GameBetter(initPlayers(), initCategories());
-
+        return null;
+//        return new GameBetter(initPlayers(), initCategories());
     }
 
     private static LinkedList<Player> initPlayers() {

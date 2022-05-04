@@ -1,25 +1,25 @@
 package trivia;
 
+import trivia.category.Category;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import trivia.category.Category;
-
 // REFACTOR ME
 public class GameBetter implements IGame {  //bad name-> GameBetter + no need fo IGame we already know is an interface
 
-    List<Player> players;
-    Map<Integer, Category> categories;
+    final List<Player> players;
+    final Map<Integer, Category> categories;
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
-    GameBetter(LinkedList<Player> players, List<Category> categories) {
+    private GameBetter(List<Player> players, List<Category> categories) {
         this.categories = categories.stream()
                 .collect(Collectors.toMap(value -> value.getCategoryType().ordinal(), value -> value));
-        this.players = players;
+        this.players = Collections.unmodifiableList(players);
         System.out.println("\n\n--Starting game--");
 
     }
@@ -86,8 +86,7 @@ public class GameBetter implements IGame {  //bad name-> GameBetter + no need fo
 
     private Category currentCategory() {
         final int locationIdx = getCurrentPlayer().getLocation();
-        final int nrCategories = Category.Type.values().length;
-        return categories.get(locationIdx % nrCategories);
+        return categories.get(locationIdx % categories.size());
     }
 
     public boolean handleCorrectAnswer() {
@@ -133,5 +132,43 @@ public class GameBetter implements IGame {  //bad name-> GameBetter + no need fo
 
     private boolean didPlayerWin() {
         return !(getCurrentPlayer().getBalance() == 6);
+    }
+
+    public static Initializer initializer() {
+        return new Initializer();
+    }
+
+    public static class Initializer {
+        private static final int MIN_PLAYERS = 2;
+        private static final int MAX_PLAYERS = 6;
+        private final List<Player> players = new ArrayList<>();
+        private final List<Category> categories = new ArrayList<>();
+
+        private Initializer() {
+        }
+
+        public Initializer addCategory(Category category) {
+            categories.add(category);
+            return this;
+        }
+
+        public Initializer addPlayer(final String playerName) {
+            final Player player = new Player(playerName);
+            players.add(player);
+
+            System.out.println(player + " was added");
+            System.out.println("They are player number " + players.size());
+            return this;
+        }
+
+        public IGame createGame() {
+            final int nrPlayers = players.size();
+            if (nrPlayers < MIN_PLAYERS || nrPlayers > MAX_PLAYERS) {
+                System.err.println("Number of players must be be: 2-6");
+                return null;
+            }
+
+            return new GameBetter(players, categories);
+        }
     }
 }
