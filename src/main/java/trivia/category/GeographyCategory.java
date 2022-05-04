@@ -1,6 +1,6 @@
 package trivia.category;
 
-public class GeographyCategory extends Category {
+class GeographyCategory extends Category {
 
     public GeographyCategory() {
         super("Geography");

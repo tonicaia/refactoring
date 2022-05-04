@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
+import static trivia.category.Category.Type.*;
 
 public class GameTest {
 
@@ -31,14 +32,14 @@ public class GameTest {
         }
 
 
-        String actualOutput = extractOutput(new Random(seed), GameBetter.initializer()
+        String actualOutput = extractOutput(new Random(seed), BetterGame.initializer()
                 .addPlayer("Chet")
                 .addPlayer("Pat")
                 .addPlayer("Sue")
-                .addCategory(new PopCategory())
-                .addCategory(new RockCategory())
-                .addCategory(new ScienceCategory())
-                .addCategory(new SportsCategory())
+                .addCategory(CategoryFactory.createCategory(POP))
+                .addCategory(CategoryFactory.createCategory(ROCK))
+                .addCategory(CategoryFactory.createCategory(SCIENCE))
+                .addCategory(CategoryFactory.createCategory(SPORTS))
                 .createGame());
 
         assertEquals("Change detected for seed " + seed + ". To breakpoint through it, run this seed alone using the (ignored) test below",

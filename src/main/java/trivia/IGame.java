@@ -2,7 +2,9 @@ package trivia;
 
 public interface IGame {
 
-	void addPlayer(String playerName);
+	default void addPlayer(String playerName) {
+		throw new UnsupportedOperationException();
+	}
 
 	void takeTurn(int roll);
 

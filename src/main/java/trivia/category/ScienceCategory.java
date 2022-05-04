@@ -1,6 +1,6 @@
 package trivia.category;
 
-public class ScienceCategory extends Category {
+class ScienceCategory extends Category {
 
     public ScienceCategory() {
         super("Science");
