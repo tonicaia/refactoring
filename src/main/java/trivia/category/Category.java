@@ -1,6 +1,7 @@
 package trivia.category;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 public abstract class Category {
 
@@ -15,7 +16,7 @@ public abstract class Category {
     }
 
     private final String name;
-    private final LinkedList<String> questions;
+    private final Queue<String> questions;
 
     public Category(String name) {
         this.name = name;
@@ -30,7 +31,7 @@ public abstract class Category {
 
     public void initQuestion() {
         for (int i = 0; i < NR_QUESTIONS; i++) {
-            this.getQuestions().addLast(createQuestion(i));
+            questions.add(createQuestion(i));
         }
     }
 
@@ -38,8 +39,10 @@ public abstract class Category {
         return name;
     }
 
-    public LinkedList<String> getQuestions() {
-        return questions;
+    public String getNextQuestion() {
+        final String question = questions.poll();
+        questions.add(question);
+        return question;
     }
 
 }

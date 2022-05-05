@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class BetterGame implements IGame {
 
     //Used to pass the tests
-    private static final boolean USE_STREAKS = true;
+    private static final boolean USE_STREAKS = false;
     private static final int ADD_NR_COINS_WITH_NO_STREAK = 1;
     private static final int ADD_NR_COINS_WITH_STREAK = 2;
     private static final int NR_MIN_WINS_FOR_STREAK = USE_STREAKS ? 3 : 100;
@@ -67,8 +67,7 @@ public class BetterGame implements IGame {
 
     private void askQuestion() {
         System.out.println("The category is " + currentCategory().getName());
-        //TODO rethink: NoSuchElementEx if called too many times
-        System.out.println(currentCategory().getQuestions().removeFirst());
+        System.out.println(currentCategory().getNextQuestion());
     }
 
     private Category currentCategory() {
