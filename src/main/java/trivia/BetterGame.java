@@ -1,9 +1,14 @@
 package trivia;
 
-import trivia.category.Category;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import trivia.category.Category;
 
 // REFACTOR ME
 public class BetterGame implements IGame {
@@ -14,14 +19,12 @@ public class BetterGame implements IGame {
     private static final int ADD_NR_COINS_WITH_STREAK = 2;
     private static final int NR_MIN_WINS_FOR_STREAK = USE_STREAKS ? 3 : 100;
     private static final int POINTS_TO_WIN = USE_STREAKS ? 12 : 6;
-
     private final List<Player> players;
     private final Map<Integer, Category> categories;
     private int currentPlayer = 0;
 
     private BetterGame(final Set<Player> players, final List<Category> categories) {
-        this.categories = categories.stream()
-                .collect(Collectors.toMap(value -> value.getCategoryType().ordinal(), value -> value));
+        this.categories = categories.stream().collect(Collectors.toMap(value -> value.getCategoryType().ordinal(), value -> value));
         this.players = Collections.unmodifiableList(new ArrayList<>(players));
 
         System.out.println("\n\n--Starting game--");
@@ -141,6 +144,7 @@ public class BetterGame implements IGame {
     }
 
     public static class Initializer {
+
         private static final int MIN_PLAYERS = 2;
         private static final int MAX_PLAYERS = 6;
         private final Set<Player> players = new HashSet<>();

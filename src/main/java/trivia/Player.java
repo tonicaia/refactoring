@@ -31,7 +31,7 @@ public class Player {
     }
 
     public void addCoins(int nrCoins) {
-        balance+= nrCoins;
+        balance += nrCoins;
     }
 
     public void addToCurrentLocation(int roll) {
@@ -59,8 +59,12 @@ public class Player {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Player player = (Player) o;
         return Objects.equals(name, player.name);
     }
